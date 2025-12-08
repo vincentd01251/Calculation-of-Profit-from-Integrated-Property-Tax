@@ -3,444 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>房地合一稅試算 - 劉鴻恩協理</title>
+    <title>房產獲利試算｜Vincent</title>
     <style>
-        /* --- 全局設定 --- */
+        /* --- 1. 全局質感設定 --- */
+        :root {
+            --primary-dark: #1a2a3a;
+            --primary-gold: #c5a065;
+            --blur-amount: 20px;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f4f6f8;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e0eafc 100%);
+            color: #2c3e50;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
+            min-height: 100vh;
+            padding-bottom: 120px;
         }
 
-        /* --- 頂部品牌區 (回復為簡潔的文字風格) --- */
-        .brand-header {
-            background-color: #009FE3; /* 幸福家品牌藍 */
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
+        /* --- 2. 頂部形象區 --- */
+        .hero-banner {
+            width: 100%;
+            height: 320px;
             position: relative;
-            /* 底部加上一個小小的弧線造型，增加設計感 */
-            border-bottom-left-radius: 30% 10px;
-            border-bottom-right-radius: 30% 10px;
+            overflow: hidden;
+            background-color: var(--primary-dark);
         }
 
-        .brand-header h2 {
-            margin: 0;
-            font-size: 1.8em;
-            font-weight: 500;
-            letter-spacing: 2px;
+        .hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0.9;
         }
 
-        .brand-header h3 {
-            margin: 8px 0 0 0;
-            font-size: 1.1em;
-            opacity: 0.95;
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
-
-        .brand-slogan {
-            font-size: 0.9em;
-            opacity: 0.8;
-            margin-top: 10px;
-            letter-spacing: 3px;
-        }
-
-        /* --- 主容器 --- */
-        .main-container {
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
             width: 90%;
-            /* 向上重疊品牌區，製造層次感 */
-            margin: -30px auto 40px auto; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .hero-title { font-size: 2em; font-weight: 700; letter-spacing: 2px; margin: 0; }
+        .hero-subtitle { font-size: 1em; font-weight: 300; margin-top: 10px; color: #eee; }
+
+        /* --- 3. 計算機主體 --- */
+        .main-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 88%;
+            margin: -60px auto 40px auto;
             position: relative;
             z-index: 10;
         }
 
         h1 {
-            color: #009FE3;
+            color: var(--primary-dark);
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 25px;
-            font-size: 1.5em;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 15px;
-        }
-
-        /* 警示語 */
-        .alert-box {
-            background-color: #e3f2fd;
-            color: #0d47a1;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 0.9em;
-            border-left: 5px solid #009FE3;
-        }
-
-        /* --- 表單樣式 --- */
-        .form-section { margin-bottom: 30px; }
-        
-        .section-title {
-            font-size: 1.1em;
-            color: #333;
-            margin-bottom: 15px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-title::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 20px;
-            background-color: #009FE3;
-            margin-right: 10px;
-            border-radius: 3px;
+            font-size: 1.6em;
         }
 
         .input-group { margin-bottom: 20px; }
-
-        label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #555;
-            font-size: 0.95em;
-        }
-
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #4a5568; }
+        
         input[type="number"], select {
             width: 100%;
-            padding: 14px;
-            border: 2px solid #eef2f7;
-            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 15px;
             box-sizing: border-box;
             font-size: 1em;
+            background: rgba(245, 247, 250, 0.8);
             transition: all 0.3s;
-            background-color: #f9fbfc;
         }
 
-        input[type="number"]:focus, select:focus {
-            border-color: #009FE3;
+        input:focus, select:focus {
+            background: #fff;
+            border-color: var(--primary-gold);
             outline: none;
-            background-color: #fff;
-            box-shadow: 0 0 0 4px rgba(0, 159, 227, 0.1);
         }
 
-        .helper-text {
-            font-size: 0.85em;
-            color: #888;
-            margin-top: 5px;
-            display: block;
-        }
-
-        /* --- 按鈕 --- */
         .calculate-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, #009FE3 0%, #0077aa 100%);
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%);
             color: white;
             border: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 5px 15px rgba(0, 159, 227, 0.3);
-            margin-bottom: 40px;
-        }
-
-        .calculate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 159, 227, 0.4);
-        }
-
-        /* --- 結果顯示區 --- */
-        .results-area {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .result-card {
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #eee;
-        }
-
-        .card-header {
-            padding: 12px;
-            text-align: center;
-            font-weight: 600;
-            color: white;
+            border-radius: 18px;
             font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(26, 42, 58, 0.25);
         }
 
-        .card-body {
-            padding: 20px;
+        /* --- 結果卡片 --- */
+        .result-card {
+            border-radius: 20px;
+            overflow: hidden;
+            background: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .card-header { padding: 15px; text-align: center; font-weight: 600; color: white; }
+        .card-body { padding: 25px; text-align: center; }
+        .amount { font-size: 2.5em; font-weight: 800; margin: 0; }
+
+        .tax-theme .card-header { background: linear-gradient(135deg, #eb5757, #cb2d3e); }
+        .tax-theme .amount { color: #c0392b; }
+        .profit-theme .card-header { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .profit-theme .amount { color: #27ae60; }
+
+        /* --- 懸浮名片 --- */
+        .floating-bar {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 60px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 8px 20px 8px 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .floating-bar:hover { transform: translateY(-5px); }
+
+        .float-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top; 
+            border: 3px solid #fff;
+            background: #fff; 
+        }
+
+        .float-info { display: flex; flex-direction: column; }
+        .float-name { font-weight: 800; color: #1a2a3a; font-size: 1.05em; }
+        .float-cta { font-size: 0.75em; color: #666; font-weight: 500; }
+
+        /* --- 彈出選單 --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(26, 42, 58, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 3000;
+            display: none;
+            justify-content: center; align-items: center;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-menu {
+            background: rgba(255, 255, 255, 0.95);
+            width: 85%; max-width: 360px;
+            border-radius: 35px; padding: 40px 30px;
             text-align: center;
+            position: relative;
+        }
+
+        .menu-avatar-large {
+            width: 110px; height: 110px;
+            border-radius: 50%; object-fit: cover; 
+            object-position: top;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-top: -80px; margin-bottom: 15px;
             background: #fff;
         }
 
-        /* 稅額 - 紅色警示 */
-        .tax-theme .card-header { background-color: #ff6b6b; }
-        .tax-theme .amount { color: #ff6b6b; }
+        .link-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
 
-        /* 獲利 - 綠色豐收 */
-        .profit-theme .card-header { background-color: #51cf66; }
-        .profit-theme .amount { color: #2b8a3e; }
-
-        .amount {
-            font-size: 2.2em;
-            font-weight: 800;
-            margin: 5px 0;
-        }
-
-        .formula {
-            font-size: 0.85em;
-            color: #999;
-            background: #f8f9fa;
-            padding: 5px 10px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-
-        /* --- 底部個人名片區 --- */
-        .contact-section {
-            margin-top: 50px;
-            padding-top: 40px;
-            border-top: 1px dashed #ddd;
-            text-align: center;
-        }
-
-        .profile-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* 照片樣式優化：針對去背半身照調整 */
-        .profile-image-footer {
-            width: 150px; /* 稍微加大 */
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: top center; /* 確保對焦在臉部 */
-            margin-bottom: 15px;
-            border: 5px solid #fff;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            background-color: #fff; /* 確保去背圖有白色底 */
-        }
-
-        .agent-title {
-             color: #009FE3;
-             font-weight: 600;
-             font-size: 1.1em;
-             margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-
-        .agent-name {
-            font-size: 1.8em;
-            font-weight: 800;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .agent-tag {
-            background-color: #fff3cd; /* 溫暖的金色背景 */
-            color: #856404;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 600;
-            margin-bottom: 25px;
-            display: inline-block;
-        }
-
-        .phone-link {
-            font-size: 1.8em;
-            font-weight: 800;
-            color: #e03131;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-            font-family: Arial, sans-serif;
-            transition: color 0.2s;
+        .brand-btn {
+            display: flex; align-items: center; justify-content: center;
+            padding: 15px; border-radius: 15px;
+            text-decoration: none; color: white; font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .phone-link:hover {
-            color: #c92a2a;
-        }
-        
-        /* 社群按鈕群組 */
-        .social-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 30px;
+        .btn-phone { background: linear-gradient(135deg, #34495e, #2c3e50); }
+        .btn-ig { background: linear-gradient(45deg, #f09433, #bc1888); }
+        .btn-fb { background: linear-gradient(135deg, #1877f2, #0056b3); }
+        .btn-line { background: linear-gradient(135deg, #06c755, #00b900); }
+        .btn-web { background: linear-gradient(135deg, #bdc3c7, #95a5a6); color: #333; }
+        .btn-reset { background: #eee; color: #555; font-size: 0.9em; }
+
+        .upload-hint {
+            font-size: 0.7em; color: #888; margin-top: 5px;
         }
 
-        .btn-social {
-            text-decoration: none;
-            padding: 10px 22px;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.95em;
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        @media (max-width: 600px) {
+            .hero-banner { height: 250px; }
+            .floating-bar { bottom: 20px; right: auto; left: 50%; transform: translateX(-50%); width: auto; padding-right: 25px; }
+            .floating-bar:hover { transform: translateX(-50%) scale(1.02); }
         }
-        .btn-social:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-        }
-
-        .btn-line { background-color: #06c755; }
-        .btn-fb { background-color: #1877f2; }
-        .btn-ig { 
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
-        }
-        .btn-web { background-color: #333; }
-
-        .footer-info {
-            font-size: 0.85em;
-            color: #999;
-            margin-top: 20px;
-            line-height: 1.6;
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="brand-header">
-        <h2>幸福家不動產</h2>
-        <h3>九份子加盟店</h3>
-        <div class="brand-slogan">[ 幸福，從家開始 ]</div>
+    <div class="hero-banner">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="House">
+        <div class="hero-text">
+            <h2 class="hero-title">房地合一稅試算</h2>
+            <p class="hero-subtitle">專業解析 · 精準獲利</p>
+        </div>
     </div>
 
     <div class="main-container">
-        <h1>房地合一稅獲利試算</h1>
+        <h1>獲利試算工具</h1>
         
-        <div class="alert-box">
-            💡 專業提醒：此計算適用於民國 105 年以後取得之房屋
+        <div class="input-group"><label>1. 房屋取得成本 (元)</label><input type="number" id="cost" value="5000000"></div>
+        <div class="input-group"><label>2. 購買時仲介發票 (元)</label><input type="number" id="buyBrokerFee" value="100000"></div>
+        <div class="input-group"><label>3. 雜項費用 (元)</label><input type="number" id="otherFees" value="50000"></div>
+        <div class="input-group"><label>4. 裝潢發票費用 (元)</label><input type="number" id="decorateFee" value="200000"></div>
+        
+        <hr style="border: 0; height: 1px; background: rgba(0,0,0,0.1); margin: 30px 0;">
+        
+        <div class="input-group"><label>5. 預計賣出金額 (元)</label><input type="number" id="sellingPrice" value="8000000"></div>
+        <div class="input-group">
+            <label>6. 賣出仲介費費率 (%)</label>
+            <input type="number" id="sellBrokerRate" value="4">
+            <p id="sellBrokerFeeDisplay" style="font-size:0.8em; color:#666;">系統自動試算：0 元</p>
         </div>
-
-        <div class="form-section">
-            <div class="section-title">成本資訊</div>
-            <div class="input-group">
-                <label for="cost">1. 房屋取得成本 (元)</label>
-                <input type="number" id="cost" placeholder="輸入購買價格" min="0">
-            </div>
-            <div class="input-group">
-                <label for="buyBrokerFee">2. 購買時仲介費 (元)</label>
-                <input type="number" id="buyBrokerFee" placeholder="輸入仲介費" min="0">
-            </div>
-            <div class="input-group">
-                <label for="otherFees">3. 雜項必要費用 (元)</label>
-                <input type="number" id="otherFees" placeholder="契稅、代書費、規費等" min="0">
-            </div>
-            <div class="input-group">
-                <label for="decorateFee">4. 裝潢發票費用 (元)</label>
-                <input type="number" id="decorateFee" placeholder="供抵稅用" min="0">
-                <span class="helper-text">* 此項目用於扣抵稅額，不列入現金流計算</span>
-            </div>
-        </div>
-
-        <div class="form-section">
-            <div class="section-title">賣出資訊</div>
-            <div class="input-group">
-                <label for="sellingPrice">5. 預計賣出金額 (元)</label>
-                <input type="number" id="sellingPrice" placeholder="輸入預期售價" min="0">
-            </div>
-            <div class="input-group">
-                <label for="sellBrokerRate">6. 賣出仲介費費率 (%)</label>
-                <input type="number" id="sellBrokerRate" value="4" min="0" max="6" step="0.5">
-                <span id="sellBrokerFeeDisplay" class="helper-text" style="color: #009FE3;">系統試算：0 元</span>
-            </div>
-            <div class="input-group">
-                <label for="holdingPeriod">7. 預計持有年限</label>
-                <select id="holdingPeriod">
-                    <option value="45">2 年以下 (稅率 45%)</option>
-                    <option value="35">2 ~ 5 年 (稅率 35%)</option>
-                    <option value="20" selected>5 ~ 10 年 (稅率 20%)</option>
-                    <option value="15">10 年以上 (稅率 15%)</option>
-                </select>
-                <span id="taxRateDisplay" class="helper-text">目前稅率：20%</span>
-            </div>
+        <div class="input-group">
+            <label>7. 預計持有年限</label>
+            <select id="holdingPeriod">
+                <option value="45">2 年以下 (45%)</option>
+                <option value="35">2 ~ 5 年 (35%)</option>
+                <option value="20" selected>5 ~ 10 年 (20%)</option>
+                <option value="15">10 年以上 (15%)</option>
+            </select>
+            <p id="taxRateDisplay" style="font-size:0.8em; color:#666;">目前稅率：20%</p>
         </div>
 
         <button class="calculate-btn" onclick="calculateProfit()">開始試算</button>
 
-        <div class="results-area">
-            <div class="result-card tax-theme">
-                <div class="card-header">預估需繳納房地合一稅</div>
-                <div class="card-body">
-                    <p id="taxAmount" class="amount">0 元</p>
-                    <div class="formula">公式：(獲利 - 相關費用 - 裝潢) × 稅率</div>
-                </div>
-            </div>
-            <div class="result-card profit-theme">
-                <div class="card-header">賣方實賺現金 (不含裝潢)</div>
-                <div class="card-body">
-                    <p id="netProfit" class="amount">0 元</p>
-                    <div class="formula">公式：售價 - 成本 - 仲介費 - 雜支 - 稅金</div>
-                </div>
-            </div>
+        <div class="result-card tax-theme">
+            <div class="card-header">預估需繳納房地合一稅</div>
+            <div class="card-body"><p id="taxAmount" class="amount">0</p></div>
         </div>
+        <div class="result-card profit-theme">
+            <div class="card-header">賣方可實賺金額 (現金流)</div>
+            <div class="card-body"><p id="netProfit" class="amount">0</p></div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; color: #ccc; font-size: 0.8em;">© 2025 Vincent</div>
+    </div>
 
-        <div class="contact-section">
-            <div class="profile-container">
-                <img src="me.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Vincent+Liu&background=009FE3&color=fff&size=200'" alt="劉鴻恩協理" class="profile-image-footer">
+    <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="handlePhotoUpload(this)">
+
+    <div class="floating-bar" onclick="openModal()">
+        <img src="avatar.jpg" id="floatAvatar" class="float-avatar" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+        <div class="float-info">
+            <div class="float-name">Vincent</div>
+            <div class="float-cta">專業房產顧問</div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="linkModal" onclick="closeModal(event)">
+        <div class="modal-menu">
+            <div style="position: relative; display: inline-block;">
+                <img src="avatar.jpg" id="menuAvatar" class="menu-avatar-large" onclick="triggerUpload(event)" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+                <div class="upload-hint">👆 點擊照片可更換</div>
+            </div>
+            
+            <div class="menu-title">Vincent</div>
+            <div class="menu-subtitle">您的專屬房產經紀人</div>
+            
+            <div class="link-grid">
+                <a href="tel:0972909959" class="brand-btn btn-phone">📞 撥打手機 (0972-909-959)</a>
+                <a href="https://www.instagram.com/_vincent0125_/" target="_blank" class="brand-btn btn-ig">📷 Instagram</a>
+                <a href="https://www.facebook.com/hn.liu.7/" target="_blank" class="brand-btn btn-fb">👍 Facebook</a>
+                <a href="#" class="brand-btn btn-line" onclick="alert('請填入 LINE 連結')">💬 官方 LINE (待設定)</a>
+                <a href="#" class="brand-btn btn-web" onclick="alert('請填入網站連結')">🌐 個人網站 (待設定)</a>
                 
-                <div class="agent-title">幸福家不動產 協理</div>
-                <div class="agent-name">劉 鴻 恩</div>
-                <div class="agent-tag">🏆 安南首購買房專家</div>
-                
-                <a href="tel:0972909959" class="phone-link">0972-909-959</a>
-
-                <div class="social-links">
-                    <a href="https://line.me/R/ti/p/@814nbtvf" target="_blank" class="btn-social btn-line">
-                        LINE 加好友
-                    </a>
-                    <a href="https://www.facebook.com/hn.liu.7/" target="_blank" class="btn-social btn-fb">
-                        個人 FB
-                    </a>
-                    <a href="https://www.instagram.com/_vincent0125_/" target="_blank" class="btn-social btn-ig">
-                        Instagram
-                    </a>
-                    <a href="https://www.singfujia.com/0972909959" target="_blank" class="btn-social btn-web">
-                        官方網站
-                    </a>
-                </div>
-
-                <div class="footer-info">
-                    台南市安南區樂活路97號<br>
-                    (九份子加盟店)<br>
-                    © 2025 Singfujia Realty Inc.
-                </div>
+                <button class="brand-btn btn-reset" onclick="resetAvatar()">🔄 清除快取並恢復預設照片</button>
             </div>
         </div>
     </div>
 
     <script>
-        function formatCurrency(number) {
-            return new Intl.NumberFormat('zh-TW').format(Math.round(number));
-        }
-
+        // 計算邏輯
+        function formatCurrency(n) { return new Intl.NumberFormat('zh-TW').format(Math.round(n)); }
         function calculateProfit() {
             const cost = parseFloat(document.getElementById('cost').value) || 0;
             const buyBrokerFee = parseFloat(document.getElementById('buyBrokerFee').value) || 0;
@@ -448,36 +318,71 @@
             const decorateFee = parseFloat(document.getElementById('decorateFee').value) || 0;
             const sellingPrice = parseFloat(document.getElementById('sellingPrice').value) || 0;
             const sellBrokerRate = parseFloat(document.getElementById('sellBrokerRate').value) || 0;
-            const taxRatePercent = parseFloat(document.getElementById('holdingPeriod').value) || 0;
-            const taxRate = taxRatePercent / 100;
+            const taxRate = (parseFloat(document.getElementById('holdingPeriod').value) || 0) / 100;
 
             const sellBrokerFee = sellingPrice * (sellBrokerRate / 100);
-            document.getElementById('sellBrokerFeeDisplay').textContent = `系統試算：${formatCurrency(sellBrokerFee)} 元`;
+            document.getElementById('sellBrokerFeeDisplay').textContent = `系統自動試算：${formatCurrency(sellBrokerFee)} 元`;
 
             const taxableIncome = sellingPrice - cost - buyBrokerFee - otherFees - sellBrokerFee - decorateFee;
-            
-            let taxAmount = 0;
-            if (taxableIncome > 0) {
-                taxAmount = taxableIncome * taxRate;
-            }
+            let taxAmount = taxableIncome > 0 ? taxableIncome * taxRate : 0;
+            const netProfit = sellingPrice - (cost + buyBrokerFee + otherFees + sellBrokerFee + decorateFee) - taxAmount;
 
-            const totalCashOutlay = cost + buyBrokerFee + otherFees + sellBrokerFee + decorateFee;
-            const netProfit = sellingPrice - totalCashOutlay - taxAmount;
-
-            document.getElementById('taxRateDisplay').textContent = `目前稅率：${taxRatePercent}%`;
+            document.getElementById('taxRateDisplay').textContent = `目前稅率：${taxRate * 100}%`;
             document.getElementById('taxAmount').textContent = `${formatCurrency(taxAmount)} 元`;
             document.getElementById('netProfit').textContent = `${formatCurrency(netProfit)} 元`;
         }
 
+        // 彈窗與照片邏輯
+        function openModal() { document.getElementById('linkModal').classList.add('active'); }
+        function closeModal(e) { if(e.target.id === 'linkModal') document.getElementById('linkModal').classList.remove('active'); }
+        
+        function triggerUpload(e) {
+            e.stopPropagation(); 
+            document.getElementById('photoInput').click();
+        }
+
+        function handlePhotoUpload(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgData = e.target.result;
+                    document.getElementById('floatAvatar').src = imgData;
+                    document.getElementById('menuAvatar').src = imgData;
+                    // 更新快取
+                    localStorage.setItem('vincent_avatar', imgData);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // 新增：重置功能，解決卡住的問題
+        function resetAvatar() {
+            if(confirm('確定要清除目前的設定並恢復預設照片嗎？')) {
+                localStorage.removeItem('vincent_avatar');
+                location.reload();
+            }
+        }
+
+        // 初始化
         window.onload = function() {
-            const inputs = document.querySelectorAll('input[type="number"], select');
+            // 自動修復邏輯：
+            // 這次我們先 *不* 強制讀取舊快取，以確保新照片 `avatar.jpg` 能顯示。
+            // 只有當使用者「手動」點擊重置或上傳新照片後，才會再度啟用記憶功能。
+            
+            // 如果真的有儲存過的照片，還是可以讀取，但如果你想強制看新照片，請點擊選單中的「清除快取」按鈕
+            const savedAvatar = localStorage.getItem('vincent_avatar');
+            if (savedAvatar) {
+                document.getElementById('floatAvatar').src = savedAvatar;
+                document.getElementById('menuAvatar').src = savedAvatar;
+            }
+
+            // 綁定計算事件
+            const inputs = document.querySelectorAll('input, select');
             inputs.forEach(input => {
                 input.addEventListener('change', calculateProfit);
                 input.addEventListener('keyup', calculateProfit);
             });
-            document.getElementById('holdingPeriod').addEventListener('change', function() {
-                document.getElementById('taxRateDisplay').textContent = `目前稅率：${this.value}%`;
-            });
+            calculateProfit();
         };
     </script>
 </body>
