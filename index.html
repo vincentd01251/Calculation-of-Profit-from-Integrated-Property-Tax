@@ -8,60 +8,57 @@
         /* --- 全局設定 --- */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f4f6f8; /* 乾淨的灰白背景 */
+            background-color: #f4f6f8;
             color: #333;
             margin: 0;
             padding: 0;
             line-height: 1.6;
         }
 
-        /* --- 頂部品牌區 (模擬名片風格) --- */
+        /* --- 頂部品牌區 (回復為簡潔的文字風格) --- */
         .brand-header {
-            background-color: #009FE3; /* 幸福家的品牌亮藍色 */
+            background-color: #009FE3; /* 幸福家品牌藍 */
             color: white;
-            padding: 20px;
+            padding: 40px 20px;
             text-align: center;
             position: relative;
+            /* 底部加上一個小小的弧線造型，增加設計感 */
+            border-bottom-left-radius: 30% 10px;
+            border-bottom-right-radius: 30% 10px;
         }
-        
+
         .brand-header h2 {
             margin: 0;
-            font-size: 1.4em;
+            font-size: 1.8em;
             font-weight: 500;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .brand-header h3 {
-            margin: 5px 0 0 0;
-            font-size: 1em;
-            opacity: 0.9;
+            margin: 8px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.95;
             font-weight: 400;
+            letter-spacing: 1px;
         }
 
-        /* --- 頂部橫幅圖片 Banner (可換圖) --- */
-        .hero-banner {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            background-color: #eee;
-        }
-
-        .hero-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
+        .brand-slogan {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 10px;
+            letter-spacing: 3px;
         }
 
         /* --- 主容器 --- */
         .main-container {
             background: #ffffff;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 90%;
-            margin: -50px auto 40px auto; /* 向上重疊效果 */
+            /* 向上重疊品牌區，製造層次感 */
+            margin: -30px auto 40px auto; 
             position: relative;
             z-index: 10;
         }
@@ -71,17 +68,17 @@
             text-align: center;
             font-weight: 700;
             margin-bottom: 25px;
-            font-size: 1.6em;
+            font-size: 1.5em;
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 15px;
         }
 
         /* 警示語 */
         .alert-box {
-            background-color: #e3f2fd; /* 淺藍色背景 */
+            background-color: #e3f2fd;
             color: #0d47a1;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             text-align: center;
             margin-bottom: 25px;
             font-size: 0.9em;
@@ -122,9 +119,9 @@
 
         input[type="number"], select {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 2px solid #eef2f7;
-            border-radius: 10px;
+            border-radius: 12px;
             box-sizing: border-box;
             font-size: 1em;
             transition: all 0.3s;
@@ -135,7 +132,7 @@
             border-color: #009FE3;
             outline: none;
             background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(0, 159, 227, 0.1);
+            box-shadow: 0 0 0 4px rgba(0, 159, 227, 0.1);
         }
 
         .helper-text {
@@ -148,7 +145,7 @@
         /* --- 按鈕 --- */
         .calculate-btn {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             background: linear-gradient(135deg, #009FE3 0%, #0077aa 100%);
             color: white;
             border: none;
@@ -163,7 +160,7 @@
 
         .calculate-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 159, 227, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 159, 227, 0.4);
         }
 
         /* --- 結果顯示區 --- */
@@ -216,10 +213,10 @@
             display: inline-block;
         }
 
-        /* --- 底部個人名片區 (重點修改) --- */
+        /* --- 底部個人名片區 --- */
         .contact-section {
             margin-top: 50px;
-            padding-top: 30px;
+            padding-top: 40px;
             border-top: 1px dashed #ddd;
             text-align: center;
         }
@@ -230,50 +227,59 @@
             align-items: center;
         }
 
-        /* 照片樣式：請將照片檔名改為 me.jpg 放在同資料夾，或使用網址 */
-        .profile-image {
-            width: 120px;
-            height: 120px;
+        /* 照片樣式優化：針對去背半身照調整 */
+        .profile-image-footer {
+            width: 150px; /* 稍微加大 */
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
+            object-position: top center; /* 確保對焦在臉部 */
             margin-bottom: 15px;
-            border: 4px solid #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border: 5px solid #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background-color: #fff; /* 確保去背圖有白色底 */
+        }
+
+        .agent-title {
+             color: #009FE3;
+             font-weight: 600;
+             font-size: 1.1em;
+             margin-bottom: 5px;
+            letter-spacing: 1px;
         }
 
         .agent-name {
             font-size: 1.8em;
             font-weight: 800;
             color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .agent-title {
-             color: #009FE3; /* 職稱用品牌藍 */
-             font-weight: 600;
-             font-size: 1.1em;
-             margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .agent-tag {
-            background-color: #ffec99;
-            color: #8c6d1f;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.85em;
+            background-color: #fff3cd; /* 溫暖的金色背景 */
+            color: #856404;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: inline-block;
         }
 
         .phone-link {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: #e03131; /* 名片上的紅色電話 */
+            font-size: 1.8em;
+            font-weight: 800;
+            color: #e03131;
             text-decoration: none;
             display: block;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             letter-spacing: 1px;
+            font-family: Arial, sans-serif;
+            transition: color 0.2s;
+        }
+        
+        .phone-link:hover {
+            color: #c92a2a;
         }
         
         /* 社群按鈕群組 */
@@ -281,23 +287,26 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
         .btn-social {
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 50px;
             color: white;
             font-weight: 600;
-            font-size: 0.9em;
-            transition: transform 0.2s;
+            font-size: 0.95em;
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             align-items: center;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .btn-social:hover { transform: translateY(-3px); }
+        .btn-social:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        }
 
         .btn-line { background-color: #06c755; }
         .btn-fb { background-color: #1877f2; }
@@ -320,10 +329,7 @@
     <div class="brand-header">
         <h2>幸福家不動產</h2>
         <h3>九份子加盟店</h3>
-    </div>
-
-    <div class="hero-banner">
-        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="房產情境圖">
+        <div class="brand-slogan">[ 幸福，從家開始 ]</div>
     </div>
 
     <div class="main-container">
@@ -398,12 +404,12 @@
 
         <div class="contact-section">
             <div class="profile-container">
-                <img src="https://ui-avatars.com/api/?name=Liu+Hong+En&background=009FE3&color=fff&size=200" alt="劉鴻恩協理" class="profile-image">
+                <img src="me.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Vincent+Liu&background=009FE3&color=fff&size=200'" alt="劉鴻恩協理" class="profile-image-footer">
                 
                 <div class="agent-title">幸福家不動產 協理</div>
-                <div class="agent-name">劉鴻恩 (Vincent)</div>
+                <div class="agent-name">劉 鴻 恩</div>
                 <div class="agent-tag">🏆 安南首購買房專家</div>
-
+                
                 <a href="tel:0972909959" class="phone-link">0972-909-959</a>
 
                 <div class="social-links">
@@ -448,7 +454,6 @@
             const sellBrokerFee = sellingPrice * (sellBrokerRate / 100);
             document.getElementById('sellBrokerFeeDisplay').textContent = `系統試算：${formatCurrency(sellBrokerFee)} 元`;
 
-            // 計算稅基：售價 - 成本 - 買仲 - 賣仲 - 雜費 - 裝潢
             const taxableIncome = sellingPrice - cost - buyBrokerFee - otherFees - sellBrokerFee - decorateFee;
             
             let taxAmount = 0;
@@ -456,8 +461,6 @@
                 taxAmount = taxableIncome * taxRate;
             }
 
-            // 計算實賺 (現金流)：售價 - 總現金支出(含裝潢) - 稅
-            // 注意：這裡將裝潢視為已支出的現金成本
             const totalCashOutlay = cost + buyBrokerFee + otherFees + sellBrokerFee + decorateFee;
             const netProfit = sellingPrice - totalCashOutlay - taxAmount;
 
